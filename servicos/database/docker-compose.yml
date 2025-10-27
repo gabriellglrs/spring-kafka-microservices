@@ -1,25 +1,53 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  postgres:
+  postgres-produtos:
     image: postgres:15
-    container_name: postgres-db-servicos
-    restart: always
+    container_name: postgres-produtos
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: default_db
+      POSTGRES_DB: icomprasprodutos
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - ./data:/var/lib/postgresql/data
-      - ./init-multiple-dbs.sh:/docker-entrypoint-initdb.d/init-multiple-dbs.sh
+      - produtos-data:/var/lib/postgresql/data
     networks:
-      - servicos-network
+      - icompras-network
+
+  postgres-clientes:
+    image: postgres:15
+    container_name: postgres-clientes
+    environment:
+      POSTGRES_DB: icomprasclientes
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+    volumes:
+      - clientes-data:/var/lib/postgresql/data
+    networks:
+      - icompras-network
+
+  postgres-pedidos:
+    image: postgres:15
+    container_name: postgres-pedidos
+    environment:
+      POSTGRES_DB: icompraspedidos
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5435:5432"
+    volumes:
+      - pedidos-data:/var/lib/postgresql/data
+    networks:
+      - icompras-network
 
 volumes:
-  data:
+  produtos-data:
+  clientes-data:
+  pedidos-data:
 
 networks:
-  servicos-network:
+  icompras-network:
     driver: bridge
