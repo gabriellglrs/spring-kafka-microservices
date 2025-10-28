@@ -1,0 +1,4 @@
+feat: Adiciona entidade Produto e seu repositório
+
+Adiciona a entidade `Produto` com os campos `id`, `nome` e `valorUnitario`.
+Também adiciona o `ProdutoRepository` para a entidade `Produto`.
